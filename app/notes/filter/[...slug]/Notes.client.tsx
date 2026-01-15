@@ -21,7 +21,7 @@ export default function NotesClient({ tagValue }: Props) {
   const limit = 12;
   const [search, setSearch] = useState("");
   const [debouncedSearch] = useDebounce(search, 300);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     setPage(1);
@@ -62,11 +62,8 @@ export default function NotesClient({ tagValue }: Props) {
           )}
         </div>
 
-        <button
-          className={css.createButton}
-          onClick={() => setIsModalOpen(true)}
-        >
-          Create note +
+        <button className={css.createButton}>
+          <a href="/notes/action/create">Create note +</a>
         </button>
       </div>
 
@@ -76,11 +73,11 @@ export default function NotesClient({ tagValue }: Props) {
         <p className={css.empty}>No notes found.</p>
       )}
 
-      {isModalOpen && (
+      {/* {isModalOpen && (
         <Modal onClose={() => setIsModalOpen(false)}>
           <NoteForm onCancel={() => setIsModalOpen(false)} />
         </Modal>
-      )}
+      )} */}
     </div>
   );
 }

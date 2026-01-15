@@ -6,8 +6,33 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 
+import { Metadata } from "next";
+
 interface Props {
   params: Promise<{ slug: string[] }>;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const tag = slug[0];
+  const displayTitle = tag === "all" ? "All Notes" : `${tag} Notes`;
+  return {
+    title: displayTitle,
+    description: `Notes: ${tag}`,
+    openGraph: {
+      title: displayTitle,
+      description: `Category: ${tag}`,
+      url: `http://localhost:3000/notes/filter/${tag}`,
+      images: [
+        {
+          url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
+          width: 1200,
+          height: 630,
+          alt: "Category image",
+        },
+      ],
+    },
+  };
 }
 
 export default async function FilteredNotesPage({ params }: Props) {
